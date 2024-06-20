@@ -1,5 +1,4 @@
 from shapely.geometry import LineString
-from shapely.ops import linemerge
 import taxicab as tc
 
 def reverse_linestring(ls):
@@ -75,4 +74,4 @@ def roadroute(G, A, B):
     except AttributeError or IndexError:
         pass
 
-    return linemerge(route), spdlims
+    return route, spdlims
