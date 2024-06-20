@@ -1,2 +1,3 @@
-# roadroute-lib
-Library to create route routes on OSXnx data street maps
+# Roadroute Library
+
+This library provides functionality to compute road routes from point A to point B using OSMnx.
