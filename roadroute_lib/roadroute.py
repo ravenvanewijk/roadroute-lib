@@ -4,7 +4,7 @@ import taxicab as tc
 def reverse_linestring(ls):
     return LineString(ls.coords[::-1])
 
-def roadroute(G, A, B):
+def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     """Compute the road route from point A to point B using the taxicab distance.
     
     Args:
@@ -23,7 +23,7 @@ def roadroute(G, A, B):
     route.append(routepart[2])
 
     # First time you have to get 2 speed limits, first wp spdlim does not matter, will be reached instantly
-    spdlims.extend([30] * (len(routepart[2].coords)))
+    spdlims.extend([def_spd] * (len(routepart[2].coords)))
 
     try:
         # For every pair of edges, append the route with the Shapely LineStrings
@@ -31,13 +31,13 @@ def roadroute(G, A, B):
             # Some edges have this attribute embedded, when geometry is curved
             if 'geometry' in G.edges[(u, v, 0)]:
                 route.append(G.edges[(u, v, 0)]['geometry'])
-                spdlims.extend([G.edges[(u, v, 0)]['maxspeed']] * (len(G.edges[(u, v, 0)]['geometry'].coords) - 1))
+                spdlims.extend([G.edges[(u, v, 0)][speed_attr]] * (len(G.edges[(u, v, 0)]['geometry'].coords) - 1))
             # Other edges don't have this attribute. These are straight lines between their two nodes.
             else:
                 # So, get a straight line between the nodes and append that line piece
                 route.append(LineString([(G.nodes[u]['x'], G.nodes[u]['y']), 
                                         (G.nodes[v]['x'], G.nodes[v]['y'])]))
-                spdlims.extend([G.edges[(u, v, 0)]['maxspeed']])
+                spdlims.extend([G.edges[(u, v, 0)][speed_attr]])
     except IndexError:
         pass
     
@@ -68,7 +68,7 @@ def roadroute(G, A, B):
                     raise Exception('Taxicab alignment Error: Coordinates of final LineString does not align')
             else:
                 route.append(routepart[3])
-            spdlims.extend([30] * (len(routepart[3].coords) - 1))
+            spdlims.extend([def_spd] * (len(routepart[3].coords) - 1))
         except IndexError:
             pass
     except AttributeError or IndexError:
