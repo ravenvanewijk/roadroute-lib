@@ -10,7 +10,7 @@ fiona==1.9.6
 fonttools==4.53.0
 geopandas==0.14.4
 idna==3.7
-importlib_metadata==7.1.0
+importlib_metadata==7.2.0
 importlib_resources==6.4.0
 kiwisolver==1.4.5
 matplotlib==3.9.0
@@ -27,7 +27,7 @@ pytz==2024.1
 requests==2.32.3
 shapely==2.0.4
 six==1.16.0
-Taxicab==0.0.3
+taxicab_st==0.0.2
 tzdata==2024.1
-urllib3==2.2.2
+urllib3==1.26.19
 zipp==3.19.2
