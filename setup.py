@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
+with open("requirements.txt", "r") as f:
+    INSTALL_REQUIRES = [line.strip() for line in f.readlines()]
+
 setup(
     name='roadroute-lib',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
-    install_requires=[
-        'shapely',  # Add other dependencies here
-    ],
+    install_requires=INSTALL_REQUIRES,
     author='Raven van Ewijk',
     author_email='ravenvanewijk1@gmail.com',
     description='A library for computing road routes using taxicab distance.',

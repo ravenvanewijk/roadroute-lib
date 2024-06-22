@@ -1,5 +1,5 @@
 from shapely.geometry import LineString
-import taxicab as tc
+import taxicab_st as ts
 
 def reverse_linestring(ls):
     return LineString(ls.coords[::-1])
@@ -13,7 +13,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     """
     route = []
     spdlims = []
-    routepart = tc.distance.shortest_path(G, [A[0], A[1]], 
+    routepart = ts.time.shortest_path(G, [A[0], A[1]], 
                                                 [B[0], B[1]])
 
     # Use the nodes to extract all edges u, v of graph G that the vehicle completely traverses
