@@ -27,7 +27,7 @@ pytz==2024.1
 requests==2.32.3
 shapely==2.0.4
 six==1.16.0
-taxicab_st==0.0.2
+taxicab_st @ git+https://github.com/ravenvanewijk/taxicab-st.git@5695c3cb5fb5e71d2c1fbb9591df39942e823e06
 tzdata==2024.1
 urllib3==1.26.19
 zipp==3.19.2
