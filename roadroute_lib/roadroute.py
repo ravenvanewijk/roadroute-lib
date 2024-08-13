@@ -64,6 +64,14 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
                 if route[-1].coords[-1] == routepart[3].coords[-1]:
                     route.append(reverse_linestring(routepart[3]))
 
+                # Rare exception where the first linepiece was added in 
+                # the wrong direction. Only occurs where routepart[1] == []
+                elif route[-1].coords[0] == routepart[3].coords[0]:
+                    route[0] = reverse_linestring(route[0])
+                    route.append(routepart[3])
+                elif route[-1].coords[0] == routepart[3].coords[1]:
+                    route[0] = reverse_linestring(route[0])
+                    route.append(reverse_linestring(routepart[3]))
                 else:
                     raise Exception('Taxicab alignment Error: Coordinates of final LineString does not align')
             else:
