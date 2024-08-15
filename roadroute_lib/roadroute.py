@@ -82,4 +82,4 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     except AttributeError or IndexError:
         pass
 
-    return route, spdlims
+    return route, spdlims, float(routepart[0])

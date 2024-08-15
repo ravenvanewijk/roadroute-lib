@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name='roadroute-lib',
-    version='0.1.6',
+    version='0.1.7',
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     author='Raven van Ewijk',
@@ -13,7 +13,7 @@ setup(
     description='A library for computing road routes using taxicab distance.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/yourusername/roadroute-lib',
+    url='https://github.com/ravenvanewijk/roadroute-lib',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
