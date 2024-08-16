@@ -1,5 +1,6 @@
 from shapely.geometry import LineString
 import taxicab_st as ts
+from osmnx.routing import route_to_gdf
 
 def reverse_linestring(ls):
     return LineString(ls.coords[::-1])
@@ -26,19 +27,26 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     spdlims.extend([def_spd] * (len(routepart[2].coords)))
 
     try:
-        # For every pair of edges, append the route with the Shapely LineStrings
-        for u, v in routepart_edges:
-            # Some edges have this attribute embedded, when geometry is curved
-            if 'geometry' in G.edges[(u, v, 0)]:
-                route.append(G.edges[(u, v, 0)]['geometry'])
-                spdlims.extend([G.edges[(u, v, 0)][speed_attr]] * (len(G.edges[(u, v, 0)]['geometry'].coords) - 1))
-            # Other edges don't have this attribute. These are straight lines between their two nodes.
+        gdf = route_to_gdf(G,routepart[1])
+        # For every pair of edges, append the route with the 
+        # Shapely LineStrings
+        for idx, row in gdf.iterrows():
+            if 'geometry' in row:
+                # Some edges have this attribute embedded
+                route.append(row['geometry'])
+                spdlims.extend([row[speed_attr]] * \
+                    (len(row['geometry'].coords) - 1))
+                # Other edges don't have this attribute. 
+                # These are straight lines between their two nodes.
             else:
-                # So, get a straight line between the nodes and append that line piece
+                # So, get a straight line between the nodes 
+                # and append that line piece
                 route.append(LineString([(G.nodes[u]['x'], G.nodes[u]['y']), 
-                                        (G.nodes[v]['x'], G.nodes[v]['y'])]))
-                spdlims.extend([G.edges[(u, v, 0)][speed_attr]])
-    except IndexError:
+                        (G.nodes[v]['x'], G.nodes[v]['y'])]))
+                spdlims.extend([row[speed_attr]])
+
+    except ValueError:
+        # No edges in routepart[1], continue with route
         pass
     
     try:
@@ -81,5 +89,30 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
             pass
     except AttributeError or IndexError:
         pass
-
     return route, spdlims, routepart[4]
+
+
+import osmnx as ox
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from shapely import Point
+from shapely.ops import linemerge
+
+
+
+def str_interpret(value):
+    return value  # Ensure the value remains a string
+
+G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
+                        edge_dtypes={'osmid': str_interpret,
+                                    'reversed': str_interpret})
+
+
+
+A = np.array([ 42.872692, -78.881017])
+B = np.array([ 42.852731, -78.815075])
+
+q,w,e= roadroute(G,A,B)   
+
+print(len(e), len(linemerge(q).coords))
