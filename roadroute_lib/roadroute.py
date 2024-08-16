@@ -17,9 +17,6 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     routepart = ts.time.shortest_path(G, [A[0], A[1]], 
                                                 [B[0], B[1]])
 
-    # Use the nodes to extract all edges u, v of graph G that the vehicle completely traverses
-    routepart_edges = zip(routepart[1][:-1], routepart[1][1:])
-
     # routepart at beginning
     route.append(routepart[2])
 
@@ -92,27 +89,27 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     return route, spdlims, routepart[4]
 
 
-import osmnx as ox
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from shapely import Point
-from shapely.ops import linemerge
+# import osmnx as ox
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from shapely import Point
+# from shapely.ops import linemerge
 
 
 
-def str_interpret(value):
-    return value  # Ensure the value remains a string
+# def str_interpret(value):
+#     return value  # Ensure the value remains a string
 
-G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
-                        edge_dtypes={'osmid': str_interpret,
-                                    'reversed': str_interpret})
+# G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
+#                         edge_dtypes={'osmid': str_interpret,
+#                                     'reversed': str_interpret})
 
 
 
-A = np.array([ 42.872692, -78.881017])
-B = np.array([ 42.852731, -78.815075])
+# A = np.array([ 42.872692, -78.881017])
+# B = np.array([ 42.852731, -78.815075])
 
-q,w,e= roadroute(G,A,B)   
+# q,w,e= roadroute(G,A,B)   
 
-print(len(e), len(linemerge(q).coords))
+# print(len(e), len(linemerge(q).coords))
