@@ -17,11 +17,17 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     routepart = ts.time.shortest_path(G, [A[0], A[1]], 
                                                 [B[0], B[1]])
 
-    # routepart at beginning
-    route.append(routepart[2])
-
-    # First time you have to get 2 speed limits, first wp spdlim does not matter, will be reached instantly
-    spdlims.extend([def_spd] * (len(routepart[2].coords)))
+    if type(routepart[2]) != list:
+        # routepart at beginning
+        route.append(routepart[2])
+        # First time you have to get 2 speed limits, first wp spdlim does not 
+        # matter, will be reached instantly
+        spdlims.extend([def_spd] * (len(routepart[2].coords)))
+    
+    else:
+        # We dont have a beginning so we can just add the default speed to the
+        # beginning
+        spdlims.extend([def_spd])
 
     try:
         gdf = route_to_gdf(G,routepart[1])
@@ -107,8 +113,11 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 
 
 
-# A = np.array([ 42.872692, -78.881017])
-# B = np.array([ 42.852731, -78.815075])
+# # A = np.array([ 42.872692, -78.881017])
+# # B = np.array([ 42.852731, -78.815075])
+# A = (42.87571, -78.731316)
+
+# B = np.array([ 42.920952, -78.744525])
 
 # q,w,e= roadroute(G,A,B)   
 
