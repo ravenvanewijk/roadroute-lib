@@ -1,5 +1,7 @@
 import numpy as np
 
+nm  = 1852.                 # m    of 1 nautical mile
+
 def kwikqdrdist(lata, lona, latb, lonb):
     """Gives quick and dirty qdr[deg] and dist [nm]
        from lat/lon. (note: does not work well close to poles)"""
