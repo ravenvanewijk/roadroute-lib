@@ -27,6 +27,6 @@ pytz
 requests
 shapely
 six
-taxicab_st @ git+https://github.com/ravenvanewijk/taxicab-st.git@3c67703569b2ab13da91a8449f5f47280f695584
+taxicab_st @ git+https://github.com/ravenvanewijk/taxicab-st.git@2925914c096cc6b336200497cbfd362f1166aae2
 urllib3
 zipp
