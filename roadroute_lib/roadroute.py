@@ -103,6 +103,27 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # from shapely.ops import linemerge
 
 
+
+# def plot_graph(G, custs, lines=[]):
+#     """Plots the graph of the selected gpkg file as well as customer 
+#     locations"""
+#     # Plot city graph
+#     fig, ax = ox.plot_graph(G, show=False, close=False)
+#     # Plot the customers
+#     locs_scatter = ax.scatter([point.x for _, point in custs.items()],
+#                                     [point.y for _, point in custs.items()],
+#                                     c='red', s=30, zorder=10, label='L&R locations')
+
+#     for line in lines:
+#         x, y = line.xy
+#         ax.plot(x, y, marker='o')  # Plot the line with markers at vertices
+#         ax.plot(x[-1],y[-1],'rs') 
+
+#     # Show the plot with a legend
+#     ax.legend(handles=[locs_scatter])
+#     plt.show()
+
+
 # def str_interpret(value):
 #     return value  # Ensure the value remains a string
 
@@ -110,13 +131,17 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 #                         edge_dtypes={'osmid': str_interpret,
 #                                     'reversed': str_interpret})
 
-# A = np.array([42.876466914460224, -78.78590820757644])
-# B = np.array([42.868358900000004, -78.8312416])
-# # A = (G.nodes[7779745399]['y'], G.nodes[7779745399]['x'])
-# # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
-# A = np.array([42.88189546413181, -78.74404160878684])
-# B = np.array([42.88198599999998, -78.746419])
+# # A = np.array([42.876466914460224, -78.78590820757644])
+# # B = np.array([42.868358900000004, -78.8312416])
+# # # A = (G.nodes[7779745399]['y'], G.nodes[7779745399]['x'])
+# # # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
+# # A = np.array([42.88189546413181, -78.74404160878684])
+# # B = np.array([42.88198599999998, -78.746419])
+# A = np.array([42.87057098882533, -78.7324669405705])
+# B = np.array([42.87571, -78.731316])
 
+# custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
-
+# # plot_graph(G, custs, [q[8]])
+# # plot_graph(G,custs, [q[7]])
 # print(len(e), len(linemerge(q).coords))
