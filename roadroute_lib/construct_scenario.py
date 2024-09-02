@@ -4,6 +4,8 @@ nm  = 1852.                 # m    of 1 nautical mile
 
 sharpturn_lim = 35.
 turn_lim = 25.
+sharpturn_spd = 5.
+turn_spd = 10.
 
 def kwikqdrdist(lata, lona, latb, lonb):
     """Gives quick and dirty qdr[deg] and dist [nm]
@@ -21,8 +23,8 @@ def kwikqdrdist(lata, lona, latb, lonb):
 
     return qdr, dist
 
-def construct_scenario(truckname, road_route, spd_lims, turn_spd=10, 
-                sharpturn_spd=5, sharpturn_lim=sharpturn_lim,   
+def construct_scenario(truckname, road_route, spd_lims, turn_spd=turn_spd, 
+                sharpturn_spd=sharpturn_spd, sharpturn_lim=sharpturn_lim,   
                 turn_lim=turn_lim, cruise_alt=0):
     """Construct the scenario text for the waypoints of the road route.
     
