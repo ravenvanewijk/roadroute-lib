@@ -139,9 +139,10 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # # B = np.array([42.88198599999998, -78.746419])
 # # A = np.array([42.948108, -78.762627])
 # # B = np.array([42.894466, -78.717194])
-# B = np.array([47.5665561, -122.3895247])
-# A = np.array([47.625187, -122.352789])
-
+# # B = np.array([47.5665561, -122.3895247])
+# # A = np.array([47.625187, -122.352789])
+# A = np.array([47.680838, -122.104114])
+# B = np.array([47.682122, -122.10635])
 
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
