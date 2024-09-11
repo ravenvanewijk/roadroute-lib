@@ -127,7 +127,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # def str_interpret(value):
 #     return value  # Ensure the value remains a string
 
-# G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
+# G = ox.load_graphml(filepath='roadroute_lib/Seattle.graphml',
 #                         edge_dtypes={'osmid': str_interpret,
 #                                     'reversed': str_interpret})
 
@@ -139,8 +139,8 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # # B = np.array([42.88198599999998, -78.746419])
 # # A = np.array([42.948108, -78.762627])
 # # B = np.array([42.894466, -78.717194])
-# B = np.array([42.909906, -78.762629])
-# A = np.array([42.861058, -78.79152])
+# B = np.array([47.5665561, -122.3895247])
+# A = np.array([47.625187, -122.352789])
 
 
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
