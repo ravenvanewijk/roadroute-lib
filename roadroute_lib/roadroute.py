@@ -81,7 +81,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
                 elif route[-1].coords[0] == routepart[3].coords[0]:
                     route[0] = reverse_linestring(route[0])
                     route.append(routepart[3])
-                elif route[-1].coords[0] == routepart[3].coords[1]:
+                elif route[-1].coords[0] == routepart[3].coords[-1]:
                     route[0] = reverse_linestring(route[0])
                     route.append(reverse_linestring(routepart[3]))
                 else:
@@ -150,6 +150,9 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 
 # A = np.array([47.638784, -122.203969])
 # B = np.array([47.656661, -122.30764])
+
+# A = np.array([47.637992, -122.191499])
+# B = np.array([47.640464, -122.192521])
 
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
