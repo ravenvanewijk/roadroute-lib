@@ -61,7 +61,8 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
                 if route[1].coords[0] == routepart[2].coords[0]:
                     route[0] = reverse_linestring(route[0])
                 else:
-                    raise Exception('Taxicab alignment Error: Coordinates of beginning LineString does not align')
+                    raise Exception('Taxicab alignment Error: Coordinates of beginning LineString ' +
+                                    f'does not align in route from {A} to {B}')
         except IndexError:
             pass
     except AttributeError:
@@ -84,7 +85,8 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
                     route[0] = reverse_linestring(route[0])
                     route.append(reverse_linestring(routepart[3]))
                 else:
-                    raise Exception('Taxicab alignment Error: Coordinates of final LineString does not align')
+                    raise Exception('Taxicab alignment Error: Coordinates of final LineString ' +
+                                    f'does not align in route from {A} to {B}')
             else:
                 route.append(routepart[3])
             spdlims.extend([def_spd] * (len(routepart[3].coords) - 1))
