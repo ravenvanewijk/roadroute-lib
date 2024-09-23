@@ -16,13 +16,15 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     spdlims = []
     routepart = ts.time.shortest_path(G, [A[0], A[1]], 
                                                 [B[0], B[1]])
+    begin_ls = linemerge([routepart[2]])
+    end_ls = linemerge([routepart[3]])
 
-    if type(routepart[2]) != list:
-        # routepart at beginning
-        route.append(routepart[2])
+    if type(begin_ls) != list:
+        # routepart at beginning        
+        route.append(begin_ls)
         # First time you have to get 2 speed limits, first wp spdlim does not 
         # matter, will be reached instantly
-        spdlims.extend([def_spd] * (len(routepart[2].coords)))
+        spdlims.extend([def_spd] * (len(begin_ls.coords)))
     
     else:
         # We dont have a beginning so we can just add the default speed to the
@@ -56,9 +58,9 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
         # Additional check for first linepart directionality. Sometimes it might be facing the wrong way.
         # The end of the beginning (incomplete) linestring should match
         try:
-            if not route[1].coords[0] == routepart[2].coords[-1]:
+            if not route[1].coords[0] == begin_ls.coords[-1]:
                 # Check if flipped version does align
-                if route[1].coords[0] == routepart[2].coords[0]:
+                if route[1].coords[0] == begin_ls.coords[0]:
                     route[0] = reverse_linestring(route[0])
                 else:
                     raise Exception('Taxicab alignment Error: Coordinates of beginning LineString ' +
@@ -71,29 +73,30 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     try:
         # Check whether final incomplete linestring is in proper direction, similar check
         try:
-            if not route[-1].coords[-1] == routepart[3].coords[0]:
+            if not route[-1].coords[-1] == end_ls.coords[0]:
                 # Check if flipped version does align
-                if route[-1].coords[-1] == routepart[3].coords[-1]:
-                    route.append(reverse_linestring(routepart[3]))
+                if route[-1].coords[-1] == end_ls.coords[-1]:
+                    route.append(reverse_linestring(end_ls))
 
                 # Rare exception where the first linepiece was added in 
                 # the wrong direction. Only occurs where routepart[1] == []
-                elif route[-1].coords[0] == routepart[3].coords[0]:
+                elif route[-1].coords[0] == end_ls.coords[0]:
                     route[0] = reverse_linestring(route[0])
-                    route.append(routepart[3])
-                elif route[-1].coords[0] == routepart[3].coords[-1]:
+                    route.append(end_ls)
+                elif route[-1].coords[0] == end_ls.coords[-1]:
                     route[0] = reverse_linestring(route[0])
-                    route.append(reverse_linestring(routepart[3]))
+                    route.append(reverse_linestring(end_ls))
                 else:
                     raise Exception('Taxicab alignment Error: Coordinates of final LineString ' +
                                     f'does not align in route from {A} to {B}')
             else:
-                route.append(routepart[3])
-            spdlims.extend([def_spd] * (len(routepart[3].coords) - 1))
+                route.append(end_ls)
+            spdlims.extend([def_spd] * (len(end_ls.coords) - 1))
         except IndexError:
             pass
     except AttributeError or IndexError:
         pass
+    # print(len(linemerge(route).coords), len(spdlims))
     return route, spdlims, routepart[4]
 
 
@@ -129,7 +132,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # def str_interpret(value):
 #     return value  # Ensure the value remains a string
 
-# G = ox.load_graphml(filepath='roadroute_lib/Seattle.graphml',
+# G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
 #                         edge_dtypes={'osmid': str_interpret,
 #                                     'reversed': str_interpret})
 
@@ -139,8 +142,8 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
 # # A = np.array([42.88189546413181, -78.74404160878684])
 # # # B = np.array([42.88198599999998, -78.746419])
-# # A = np.array([42.948108, -78.762627])
-# # B = np.array([42.894466, -78.717194])
+# A = np.array([42.948108, -78.762627])
+# B = np.array([42.894466, -78.717194])
 # # B = np.array([47.5665561, -122.3895247])
 # # A = np.array([47.625187, -122.352789])
 # # A = np.array([47.680838, -122.104114])
@@ -148,14 +151,19 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # A = np.array([47.608602, -122.285365])
 # # B = np.array([47.574254, -122.326014])
 
-# A = np.array([47.638784, -122.203969])
-# B = np.array([47.656661, -122.30764])
+# # A = np.array([47.638784, -122.203969])
+# # B = np.array([47.656661, -122.30764])
 
-# A = np.array([47.637992, -122.191499])
-# B = np.array([47.640464, -122.192521])
+# # A = np.array([47.637992, -122.191499])
+# # B = np.array([47.640464, -122.192521])
+
+
+# # A = np.array([47.547134, -122.336966])
+# # B = np.array([47.538336, -122.295355])
+# # A = np.array([42.875181199999986, -78.861864])
+# # B = np.array([ 42.856027, -78.867927])
 
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
 # # plot_graph(G, custs, [q[8]])
 # # plot_graph(G,custs, [q[7]])
-# print(len(e), len(linemerge(q).coords))
