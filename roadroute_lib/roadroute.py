@@ -17,10 +17,14 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     spdlims = []
     routepart = ts.time.shortest_path(G, [A[0], A[1]], 
                                                 [B[0], B[1]])
-    begin_ls = linemerge([routepart[2]])
-    end_ls = linemerge([routepart[3]])
 
-    if type(begin_ls) != list:
+    if type(routepart[3]) != list:
+        end_ls = linemerge([routepart[3]])
+    else:
+        end_ls = routepart[3]
+
+    if type(routepart[2]) != list:
+        begin_ls = linemerge([routepart[2]])
         # routepart at beginning        
         route.append(begin_ls)
         # First time you have to get 2 speed limits, first wp spdlim does not 
@@ -28,6 +32,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
         spdlims.extend([def_spd] * (len(begin_ls.coords)))
     
     else:
+        begin_ls = routepart[2]
         # We dont have a beginning so we can just add the default speed to the
         # beginning
         spdlims.extend([def_spd])
