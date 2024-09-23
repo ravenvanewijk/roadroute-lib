@@ -1,4 +1,5 @@
 from shapely.geometry import LineString
+from shapely.ops import linemerge
 import taxicab_st as ts
 from osmnx.routing import route_to_gdf
 
