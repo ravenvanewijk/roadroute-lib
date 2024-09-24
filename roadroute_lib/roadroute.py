@@ -145,75 +145,75 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 
 
 
-import osmnx as ox
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from shapely import Point
-from shapely.ops import linemerge
+# import osmnx as ox
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from shapely import Point
+# from shapely.ops import linemerge
 
 
 
-def plot_graph(G, custs, lines=[]):
-    """Plots the graph of the selected gpkg file as well as customer 
-    locations"""
-    # Plot city graph
-    fig, ax = ox.plot_graph(G, show=False, close=False)
-    # Plot the customers
-    locs_scatter = ax.scatter([point.x for _, point in custs.items()],
-                                    [point.y for _, point in custs.items()],
-                                    c='red', s=30, zorder=10, label='L&R locations')
+# def plot_graph(G, custs, lines=[]):
+#     """Plots the graph of the selected gpkg file as well as customer 
+#     locations"""
+#     # Plot city graph
+#     fig, ax = ox.plot_graph(G, show=False, close=False)
+#     # Plot the customers
+#     locs_scatter = ax.scatter([point.x for _, point in custs.items()],
+#                                     [point.y for _, point in custs.items()],
+#                                     c='red', s=30, zorder=10, label='L&R locations')
 
-    for line in lines:
-        x, y = line.xy
-        ax.plot(x, y, marker='o')  # Plot the line with markers at vertices
-        ax.plot(x[-1],y[-1],'rs') 
+#     for line in lines:
+#         x, y = line.xy
+#         ax.plot(x, y, marker='o')  # Plot the line with markers at vertices
+#         ax.plot(x[-1],y[-1],'rs') 
 
-    # Show the plot with a legend
-    ax.legend(handles=[locs_scatter])
-    plt.show()
-
-
-def str_interpret(value):
-    return value  # Ensure the value remains a string
-
-G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
-                        edge_dtypes={'osmid': str_interpret,
-                                    'reversed': str_interpret})
-
-# A = np.array([42.876466914460224, -78.78590820757644])
-# B = np.array([42.868358900000004, -78.8312416])
-# # A = (G.nodes[7779745399]['y'], G.nodes[7779745399]['x'])
-# # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
-# A = np.array([42.88189546413181, -78.74404160878684])
-# # B = np.array([42.88198599999998, -78.746419])
-# A = np.array([42.948108, -78.762627])
-# B = np.array([42.894466, -78.717194])
-
-# A = np.array([42.92238771355551, -78.83363366913012])
-# B = np.array([42.92179680000001, -78.8336239])
-A = np.array([42.961694872237025, -78.7593302452336])
-B = np.array([ 42.965185599999984, -78.7593501])
-# B = np.array([47.5665561, -122.3895247])
-# A = np.array([47.625187, -122.352789])
-# A = np.array([47.680838, -122.104114])
-# B = np.array([47.682122, -122.10635])
-# A = np.array([47.608602, -122.285365])
-# B = np.array([47.574254, -122.326014])
-
-# A = np.array([47.638784, -122.203969])
-# B = np.array([47.656661, -122.30764])
-
-# A = np.array([47.637992, -122.191499])
-# B = np.array([47.640464, -122.192521])
+#     # Show the plot with a legend
+#     ax.legend(handles=[locs_scatter])
+#     plt.show()
 
 
-# A = np.array([47.547134, -122.336966])
-# B = np.array([47.538336, -122.295355])
-# A = np.array([42.875181199999986, -78.861864])
-# B = np.array([ 42.856027, -78.867927])
+# def str_interpret(value):
+#     return value  # Ensure the value remains a string
 
-custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
-q,w,e= roadroute(G,A,B)   
-# plot_graph(G, custs, [q[8]])
-# plot_graph(G,custs, [q[7]])
+# G = ox.load_graphml(filepath='roadroute_lib/Buffalo.graphml',
+#                         edge_dtypes={'osmid': str_interpret,
+#                                     'reversed': str_interpret})
+
+# # A = np.array([42.876466914460224, -78.78590820757644])
+# # B = np.array([42.868358900000004, -78.8312416])
+# # # A = (G.nodes[7779745399]['y'], G.nodes[7779745399]['x'])
+# # # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
+# # A = np.array([42.88189546413181, -78.74404160878684])
+# # # B = np.array([42.88198599999998, -78.746419])
+# # A = np.array([42.948108, -78.762627])
+# # B = np.array([42.894466, -78.717194])
+
+# # A = np.array([42.92238771355551, -78.83363366913012])
+# # B = np.array([42.92179680000001, -78.8336239])
+# A = np.array([42.961694872237025, -78.7593302452336])
+# B = np.array([ 42.965185599999984, -78.7593501])
+# # B = np.array([47.5665561, -122.3895247])
+# # A = np.array([47.625187, -122.352789])
+# # A = np.array([47.680838, -122.104114])
+# # B = np.array([47.682122, -122.10635])
+# # A = np.array([47.608602, -122.285365])
+# # B = np.array([47.574254, -122.326014])
+
+# # A = np.array([47.638784, -122.203969])
+# # B = np.array([47.656661, -122.30764])
+
+# # A = np.array([47.637992, -122.191499])
+# # B = np.array([47.640464, -122.192521])
+
+
+# # A = np.array([47.547134, -122.336966])
+# # B = np.array([47.538336, -122.295355])
+# # A = np.array([42.875181199999986, -78.861864])
+# # B = np.array([ 42.856027, -78.867927])
+
+# custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
+# q,w,e= roadroute(G,A,B)   
+# # plot_graph(G, custs, [q[8]])
+# # plot_graph(G,custs, [q[7]])
