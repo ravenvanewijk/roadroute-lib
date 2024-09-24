@@ -106,6 +106,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     return route, spdlims, routepart[4]
 
 
+
 # import osmnx as ox
 # import numpy as np
 # import matplotlib.pyplot as plt
@@ -148,8 +149,13 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # # B = (G.nodes[11209177619]['y'], G.nodes[11209177619]['x'])
 # # A = np.array([42.88189546413181, -78.74404160878684])
 # # # B = np.array([42.88198599999998, -78.746419])
-# A = np.array([42.948108, -78.762627])
-# B = np.array([42.894466, -78.717194])
+# # A = np.array([42.948108, -78.762627])
+# # B = np.array([42.894466, -78.717194])
+
+# # A = np.array([42.92238771355551, -78.83363366913012])
+# # B = np.array([42.92179680000001, -78.8336239])
+# A = np.array([42.961694872237025, -78.7593302452336])
+# B = np.array([ 42.965185599999984, -78.7593501])
 # # B = np.array([47.5665561, -122.3895247])
 # # A = np.array([47.625187, -122.352789])
 # # A = np.array([47.680838, -122.104114])
