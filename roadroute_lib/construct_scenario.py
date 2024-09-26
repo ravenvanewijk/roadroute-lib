@@ -2,8 +2,8 @@ import numpy as np
 
 nm  = 1852.                 # m    of 1 nautical mile
 
-sharpturn_lim = 35.
-turn_lim = 25.
+sharpturn_lim = 90.
+turn_lim = 45.
 sharpturn_spd = 5.
 turn_spd = 10.
 
