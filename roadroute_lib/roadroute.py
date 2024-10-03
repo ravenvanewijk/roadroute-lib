@@ -195,8 +195,12 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # A = np.array([42.961694872237025, -78.7593302452336])
 # # B = np.array([ 42.965185599999984, -78.7593501])
 
-# A = np.array([42.99148177004806, -78.77108391446286])
-# B = np.array([ 42.99134759999998, -78.7821653])
+# # A = np.array([42.99148177004806, -78.77108391446286])
+# # B = np.array([ 42.99134759999998, -78.7821653])
+
+# A = np.array([ 42.959665588770186, -78.76380033011569])
+# B = np.array([42.959674699999994, -78.7635801])
+
 # # B = np.array([47.5665561, -122.3895247])
 # # A = np.array([47.625187, -122.352789])
 # # A = np.array([47.680838, -122.104114])
@@ -218,5 +222,7 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
+# q_merged = linemerge(q)
+# a=1
 # # plot_graph(G, custs, [q[8]])
 # # plot_graph(G,custs, [q[7]])
