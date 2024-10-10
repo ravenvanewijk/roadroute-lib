@@ -141,7 +141,13 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
     except AttributeError or IndexError:
         pass
     # print(len(linemerge(route).coords), len(spdlims))
-    return route, spdlims, routepart[4]
+    # Final check for empty route
+    if route == []:
+        spdlims = []
+        etas = []
+    else:
+        etas = routepart[4]
+    return route, spdlims, etas
 
 
 
@@ -227,8 +233,8 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # A = np.array([ 42.88555098277178, -78.73841364608232])
 # # B = np.array([42.8840926, -78.7405278])
 
-# A = np.array([ 42.87751705032876, -78.87284030250486])
-# B = np.array([42.8806299, -78.8796273])
+# # A = np.array([ 42.87751705032876, -78.87284030250486])
+# # B = np.array([42.8806299, -78.8796273])
 
 
 # # A = np.array([47.547134, -122.336966])
@@ -236,9 +242,15 @@ def roadroute(G, A, B, speed_attr='maxspeed_kts', def_spd=26.07):
 # # A = np.array([42.875181199999986, -78.861864])
 # # B = np.array([ 42.856027, -78.867927])
 
+# # A = np.array([ 42.95915105373447, -78.76622741568868])
+# # B = np.array([42.959674699999994, -78.7635801])
+
+# A = np.array([ 42.95915105373447, -78.76622741568868])
+# B = np.array([ 42.95915105373447, -78.76622741568868])
+
 # custs = pd.Series([Point(A[1], A[0]), Point(B[1], B[0])])
 # q,w,e= roadroute(G,A,B)   
 # q_merged = linemerge(q)
 # a=1
-# # plot_graph(G, custs, [q[8]])
-# # plot_graph(G,custs, [q[7]])
+# # # plot_graph(G, custs, [q[8]])
+# # # plot_graph(G,custs, [q[7]])
