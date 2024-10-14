@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name='roadroute-lib',
-    version='1.0.0',
+    version='1.0.1',
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     author='Raven van Ewijk',
